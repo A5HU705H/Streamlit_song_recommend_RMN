@@ -4,6 +4,7 @@ import numpy as np
 import tensorflow as tf
 import base64
 from rmn import RMN
+import cv2
 
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
@@ -31,6 +32,9 @@ if picture is not None:
     prediction=results[0]['emo_label']
     image=m.draw(picture,results)
     cv2.imwrite('output.jpg',image)
+    img=cv2.imread('output.jpg')
+    img=img[:,:,::-1]
+    cv2.imwrite('output.jpg',img)
     st.image('output.jpg')
     st.write("Emotion detected is: ",prediction)
     dict1={'angry':'https://open.spotify.com/playlist/71Xpaq3Hbpxz6w9yDmIsaH',
